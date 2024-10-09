@@ -17,6 +17,7 @@ Necessário ter o maven instalado e configurado nas varíaveis de ambiente apont
 
 # docs apis
 Swagger: http://localhost:8080/swagger-ui.html
+Database console: http://localhost:8080/h2-console
 
 
 

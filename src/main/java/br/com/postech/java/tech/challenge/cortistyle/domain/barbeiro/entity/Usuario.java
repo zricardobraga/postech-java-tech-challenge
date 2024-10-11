@@ -1,5 +1,6 @@
 package br.com.postech.java.tech.challenge.cortistyle.domain.barbeiro.entity;
 
+import br.com.postech.java.tech.challenge.cortistyle.infrastructure.enums.TipoUsuarioEnum;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -11,9 +12,9 @@ import java.io.Serializable;
 @Entity
 @NoArgsConstructor
 @AllArgsConstructor
-@Table(name = "tb_barbeiro")
+@Table(name = "tb_usuario")
 @SuppressWarnings("serial")
-public class Barbeiro implements Serializable {
+public class Usuario implements Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -21,5 +22,6 @@ public class Barbeiro implements Serializable {
     private String nome;
     private String cpf;
 
-    //Servicos -> value object
+    @Enumerated(EnumType.STRING)
+    private TipoUsuarioEnum tpUsuario;
 }

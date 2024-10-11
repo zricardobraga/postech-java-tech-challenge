@@ -23,13 +23,11 @@ public class FilialController {
     private final CadastrarFilialService cadastrarFilialService;
 
     @PostMapping
-    @Operation(summary = "Cadastrar uma nova filial")
+    @Operation(summary = "Cadastrar nova filial")
     public ResponseEntity<CadastrarFilialResponse> cadastrar(@RequestBody @Valid CadastrarFilialRequest request) {
         log.info("Cadastrando nova filial pelo gestor: {}", "nomeGestor");
-        var filial = FilialMapper.paraFilial(request);
-        var filialCadastrada = cadastrarFilialService.cadastrar(filial, request.getGestorId());
-        var response = FilialMapper.paraCadastrarFilialResponse(filialCadastrada);
-
-        return new ResponseEntity(response, HttpStatus.CREATED);
+        CadastrarFilialResponse response = cadastrarFilialService.cadastrar(request);
+        return new ResponseEntity<>(response, HttpStatus.CREATED);
     }
+
 }

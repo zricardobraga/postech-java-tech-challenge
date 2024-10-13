@@ -30,6 +30,7 @@ public class CadastrarBarbeiroService {
 
         // TODO: cria usuario e senha de login
         // TODO: SistemaExterno notifica barbeiro
+        // TODO: Login barbeiro
 
         return new CadastrarBarbeiroResponse(barbeiroCadastrado.getNome());
     }

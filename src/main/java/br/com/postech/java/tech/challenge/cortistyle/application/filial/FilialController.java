@@ -1,8 +1,12 @@
 package br.com.postech.java.tech.challenge.cortistyle.application.filial;
 
 import br.com.postech.java.tech.challenge.cortistyle.application.filial.request.CadastrarFilialRequest;
+import br.com.postech.java.tech.challenge.cortistyle.application.filial.request.IncluirBarbeiroFilialRequest;
+import br.com.postech.java.tech.challenge.cortistyle.application.filial.response.BarbeiroFilialResponse;
 import br.com.postech.java.tech.challenge.cortistyle.application.filial.response.CadastrarFilialResponse;
 import br.com.postech.java.tech.challenge.cortistyle.domain.filial.service.CadastrarFilialService;
+import br.com.postech.java.tech.challenge.cortistyle.domain.filial.service.IncluirBarbeiroFilialService;
+import br.com.postech.java.tech.challenge.cortistyle.domain.filial.service.ListarBarbeirosFilialService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
@@ -10,10 +14,9 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 @Tag(name = "Filiais")
 @Slf4j
@@ -23,6 +26,8 @@ import org.springframework.web.bind.annotation.RestController;
 public class FilialController {
 
     private final CadastrarFilialService cadastrarFilialService;
+    private final IncluirBarbeiroFilialService incluirBarbeiroFilialService;
+    private final ListarBarbeirosFilialService listarBarbeirosFilialService;
 
     @PostMapping
     @Operation(summary = "Cadastrar nova filial")
@@ -32,6 +37,22 @@ public class FilialController {
         return new ResponseEntity<>(response, HttpStatus.CREATED);
     }
 
-    //TODO: criar serviço incluir barbeiro a filial.
-    //TODO: lista barbeiros filial
+    @PostMapping("/barbeiros")
+    @Operation(summary = "Incluir barbeiro a uma filial")
+    public ResponseEntity<List<BarbeiroFilialResponse>> incluirBarbeiro(@RequestBody @Valid
+                                                                        IncluirBarbeiroFilialRequest request) {
+        log.info("Incluindo barbeiro de id: {} a filial pelo gestor: {}", request.getBarbeiroId(),
+                request.getFilialId());
+        incluirBarbeiroFilialService.incluir(request);
+        var response = listarBarbeirosFilialService.listarBarbeirosBy(request.getFilialId());
+        return new ResponseEntity<>(response, HttpStatus.CREATED);
+    }
+
+    @GetMapping("/{id}/barbeiros")
+    @Operation(summary = "Listar barbeiros de uma filial")
+    public ResponseEntity<List<BarbeiroFilialResponse>> listarBarbeiros(@PathVariable Long id) {
+        log.info("Listando barbeiros da filial de id: {}", id);
+        List<BarbeiroFilialResponse> response = listarBarbeirosFilialService.listarBarbeirosBy(id);
+        return new ResponseEntity<>(response, HttpStatus.CREATED);
+    }
 }

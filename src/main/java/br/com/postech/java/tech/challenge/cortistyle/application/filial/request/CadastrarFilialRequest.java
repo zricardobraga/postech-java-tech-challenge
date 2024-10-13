@@ -1,5 +1,6 @@
 package br.com.postech.java.tech.challenge.cortistyle.application.filial.request;
 
+import br.com.postech.java.tech.challenge.cortistyle.domain.filial.entity.Filial;
 import jakarta.validation.constraints.NotBlank;
 import lombok.Getter;
 
@@ -12,5 +13,9 @@ public class CadastrarFilialRequest {
     private String nome;
     @NotBlank
     private String cnpj;
+
+    public Filial toFilial() {
+        return new Filial(null, this.nome, this.cnpj);
+    }
 
 }

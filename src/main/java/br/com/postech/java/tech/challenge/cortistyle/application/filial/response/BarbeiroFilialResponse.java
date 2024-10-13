@@ -2,14 +2,16 @@ package br.com.postech.java.tech.challenge.cortistyle.application.filial.respons
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 
 import java.io.Serializable;
 
 @Getter
+@NoArgsConstructor
 @AllArgsConstructor
 @SuppressWarnings("serial")
-public class CadastrarFilialResponse implements Serializable {
+public class BarbeiroFilialResponse implements Serializable {
 
-    private String nome;
-
+    private Long barbeiroId;
+    private String barbeiroNome;
 }

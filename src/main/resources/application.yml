@@ -1,5 +1,5 @@
 #####################################################
-###### ARQUIVO USADO PARA CONFIGS GERAIS ######
+######    ARQUIVO USADO PARA CONFIGS GERAIS    ######
 #####################################################
 spring:
   application:

@@ -29,6 +29,8 @@ public class CadastrarBarbeiroService {
 
         var barbeiroCadastrado = repository.save(request.toBarbeiro());
 
+        // TODO: notifica barbeiro, cria usuario e senha de login
+
         return new CadastrarBarbeiroResponse(barbeiroCadastrado.getNome());
     }
 }

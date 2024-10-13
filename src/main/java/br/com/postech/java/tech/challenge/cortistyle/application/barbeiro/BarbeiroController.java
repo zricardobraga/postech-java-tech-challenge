@@ -33,7 +33,7 @@ public class BarbeiroController {
     @Operation(summary = "Cadastrar novo barbeiro")
     @PostMapping
     public ResponseEntity<CadastrarBarbeiroResponse> cadastrar(@RequestBody @Valid CadastrarBarbeiroRequest request) {
-        log.info("Cadastrando novo barbeiro para a filial de id: {}", request.getFilialId());
+        log.info("Cadastrando novo barbeiro");
         CadastrarBarbeiroResponse response = cadastrarBarbeiroService.cadastrar(request);
         return new ResponseEntity<>(response, HttpStatus.CREATED);
     }
@@ -46,4 +46,7 @@ public class BarbeiroController {
         List<CadastroHorarioBarbeiroResponse> response = cadastrarHorarioService.cadastrar(request);
         return new ResponseEntity<>(response, HttpStatus.CREATED);
     }
+
+    //TODO: barbeiro Vincula serviços
+    //TODO: Lista horários do barbeiro.
 }

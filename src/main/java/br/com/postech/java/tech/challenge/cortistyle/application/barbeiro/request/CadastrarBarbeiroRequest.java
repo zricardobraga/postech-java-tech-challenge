@@ -15,8 +15,6 @@ public class CadastrarBarbeiroRequest {
     private String cpfCnpj;
     @NotNull
     private String gestorId;
-    @NotNull
-    private Long filialId;
 
     public Usuario toBarbeiro() {
         return new Usuario(null, this.nome, this.cpfCnpj, TipoUsuarioEnum.BARBEIRO);

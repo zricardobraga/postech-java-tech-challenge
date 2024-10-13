@@ -32,4 +32,6 @@ public class FilialController {
         return new ResponseEntity<>(response, HttpStatus.CREATED);
     }
 
+    //TODO: criar serviço incluir barbeiro a filial.
+    //TODO: lista barbeiros filial
 }

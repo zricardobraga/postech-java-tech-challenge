@@ -1,4 +1,4 @@
-package br.com.postech.java.tech.challenge.cortistyle.domain.barbeiro.entity;
+package br.com.postech.java.tech.challenge.cortistyle.domain.usuario.entity;
 
 import br.com.postech.java.tech.challenge.cortistyle.infrastructure.enums.TipoUsuarioEnum;
 import jakarta.persistence.*;

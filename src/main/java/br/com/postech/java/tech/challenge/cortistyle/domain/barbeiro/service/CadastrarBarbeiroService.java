@@ -16,10 +16,10 @@ public class CadastrarBarbeiroService {
 
     public CadastrarBarbeiroResponse cadastrar(@Valid CadastrarBarbeiroRequest request) {
         //TODO: identificar gestor por seu id e validá-lo.
-        //TODO: criar serviço validar inclusão do barbeiro a filial, exemplo: filial tem vagas, filial válida etc.
+        //TODO: criar serviço validar inclusão do barbeiro a filial válida.
         //TODO: filial tera barbeiros e um gestor, filial lista barbeiros
-        //TODO: cadastrar serviços, e barbeiro cadastrar seus serviços
-        //TODO: cadastrar horarios
+        //TODO: barbeiro cadastrar seus serviços
+        //TODO: barbeiro cadastrar horarios
         boolean cadastroInvalido = false;
 
         if (cadastroInvalido) {
@@ -29,7 +29,8 @@ public class CadastrarBarbeiroService {
 
         var barbeiroCadastrado = repository.save(request.toBarbeiro());
 
-        // TODO: notifica barbeiro, cria usuario e senha de login
+        // TODO: cria usuario e senha de login
+        // TODO: SistemaExterno notifica barbeiro
 
         return new CadastrarBarbeiroResponse(barbeiroCadastrado.getNome());
     }

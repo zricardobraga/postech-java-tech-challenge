@@ -2,10 +2,13 @@ package br.com.postech.java.tech.challenge.cortistyle.application.barbeiro;
 
 import br.com.postech.java.tech.challenge.cortistyle.application.barbeiro.request.CadastrarBarbeiroRequest;
 import br.com.postech.java.tech.challenge.cortistyle.application.barbeiro.request.CadastrarHorarioBarbeiroRequest;
+import br.com.postech.java.tech.challenge.cortistyle.application.barbeiro.request.CadastrarServicoBarbeiroRequest;
 import br.com.postech.java.tech.challenge.cortistyle.application.barbeiro.response.CadastrarBarbeiroResponse;
 import br.com.postech.java.tech.challenge.cortistyle.application.barbeiro.response.CadastroHorarioBarbeiroResponse;
+import br.com.postech.java.tech.challenge.cortistyle.application.barbeiro.response.CadastroServicoBarbeiroResponse;
 import br.com.postech.java.tech.challenge.cortistyle.domain.barbeiro.service.CadastrarBarbeiroService;
 import br.com.postech.java.tech.challenge.cortistyle.domain.barbeiro.service.CadastrarHorarioService;
+import br.com.postech.java.tech.challenge.cortistyle.domain.barbeiro.service.CadastrarServicoBarbeiroService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
@@ -18,6 +21,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Tag(name = "Barbeiros")
@@ -29,6 +33,7 @@ public class BarbeiroController {
 
     private final CadastrarBarbeiroService cadastrarBarbeiroService;
     private final CadastrarHorarioService cadastrarHorarioService;
+    private final CadastrarServicoBarbeiroService cadastrarServicoBarbeiroService;
 
     @Operation(summary = "Cadastrar novo barbeiro")
     @PostMapping
@@ -47,6 +52,16 @@ public class BarbeiroController {
         return new ResponseEntity<>(response, HttpStatus.CREATED);
     }
 
-    //TODO: barbeiro Vincula serviços
+    @Operation(summary = "Cadastrar serviço barbeiro")
+    @PostMapping("/servicos")
+    public ResponseEntity<List<CadastroServicoBarbeiroResponse>> cadastrarServico(@RequestBody @Valid
+                                                                                  CadastrarServicoBarbeiroRequest request) {
+        log.info("Cadastrando novo serviço para o barbeiro de id: {}", request.getBarbeiroId());
+        cadastrarServicoBarbeiroService.cadastrar(request);
+        ArrayList<CadastroServicoBarbeiroResponse> servicoListarServicosASerImplementado = new ArrayList<>();
+        return new ResponseEntity<>(servicoListarServicosASerImplementado, HttpStatus.CREATED);
+    }
+
     //TODO: Lista horários do barbeiro.
+    //TODO: Lista serviços do barbeiro.
 }

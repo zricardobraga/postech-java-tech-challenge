@@ -1,8 +1,8 @@
 package br.com.postech.java.tech.challenge.cortistyle.infrastructure.configs;
 
-import br.com.postech.java.tech.challenge.cortistyle.domain.usuario.entity.Usuario;
+import br.com.postech.java.tech.challenge.cortistyle.domain.login.usuario.entity.Usuario;
 import br.com.postech.java.tech.challenge.cortistyle.infrastructure.enums.TipoUsuarioEnum;
-import br.com.postech.java.tech.challenge.cortistyle.infrastructure.repositories.usuario.UsuarioRepository;
+import br.com.postech.java.tech.challenge.cortistyle.infrastructure.repositories.login.usuario.UsuarioRepository;
 import jakarta.annotation.PostConstruct;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Configuration;

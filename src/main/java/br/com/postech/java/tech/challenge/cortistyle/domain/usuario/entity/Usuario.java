@@ -21,6 +21,9 @@ public class Usuario implements Serializable {
     private Long id;
     private String nome;
     private String cpf;
+    private String username;
+    private String password;
+    private String token;
 
     @Enumerated(EnumType.STRING)
     private TipoUsuarioEnum tpUsuario;

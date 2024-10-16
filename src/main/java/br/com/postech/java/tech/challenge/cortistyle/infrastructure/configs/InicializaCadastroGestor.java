@@ -15,7 +15,7 @@ public class InicializaCadastroGestor {
 
     @PostConstruct
     void cadastraGestor() {
-        var gestor = new Usuario(null, "Gestor X", "cpf.teste.cpf-te", TipoUsuarioEnum.GESTOR);
+        var gestor = new Usuario(null, "Gestor X", "cpf.teste.cpf-te", "admin", "123", "token", TipoUsuarioEnum.GESTOR);
         repository.save(gestor);
     }
 }

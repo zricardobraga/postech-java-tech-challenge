@@ -11,4 +11,8 @@ import java.util.Optional;
 public interface UsuarioRepository extends JpaRepository<Usuario, Long> {
 
     Optional<Usuario> findByIdAndTpUsuario(Long id, TipoUsuarioEnum tpUsuario);
+
+    Optional<Usuario> findByUsernameAndPassword(String username, String password);
+
+    Optional<Usuario> findByToken(String token);
 }

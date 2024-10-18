@@ -24,7 +24,7 @@ import org.springframework.web.bind.annotation.RestController;
 import java.util.ArrayList;
 import java.util.List;
 
-@Tag(name = "Barbeiros")
+@Tag(name = "Cadastros")
 @Slf4j
 @RestController
 @RequiredArgsConstructor

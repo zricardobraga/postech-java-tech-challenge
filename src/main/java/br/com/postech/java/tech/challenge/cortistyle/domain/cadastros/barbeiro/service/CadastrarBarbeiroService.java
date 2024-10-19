@@ -29,6 +29,7 @@ public class CadastrarBarbeiroService {
         var barbeiroCadastrado = repository.save(request.toBarbeiro());
 
         // TODO: cria usuario e senha de login
+        // TODO: criar cadastros cliente
         // TODO: SistemaExterno notifica barbeiro
         // TODO: Login barbeiro
 

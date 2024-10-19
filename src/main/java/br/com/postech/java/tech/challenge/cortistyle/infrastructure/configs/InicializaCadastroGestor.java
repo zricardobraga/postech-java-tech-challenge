@@ -7,6 +7,8 @@ import jakarta.annotation.PostConstruct;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Configuration;
 
+import java.util.Base64;
+
 @RequiredArgsConstructor
 @Configuration
 public class InicializaCadastroGestor {
@@ -15,7 +17,8 @@ public class InicializaCadastroGestor {
 
     @PostConstruct
     void cadastraGestor() {
-        var gestor = new Usuario(null, "Gestor X", "cpf.teste.cpf-te", "admin", "123", "token", TipoUsuarioEnum.GESTOR);
+        String pass = Base64.getEncoder().encodeToString("123".getBytes());
+        var gestor = new Usuario(null, "Gestor X", "cpf.teste.cpf-te", "admin", pass, "token", TipoUsuarioEnum.GESTOR);
         repository.save(gestor);
     }
 }

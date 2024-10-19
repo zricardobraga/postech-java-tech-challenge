@@ -53,6 +53,6 @@ public class FilialController {
     public ResponseEntity<List<BarbeiroFilialResponse>> listarBarbeiros(@PathVariable Long id) {
         log.info("Listando barbeiros da filial de id: {}", id);
         List<BarbeiroFilialResponse> response = listarBarbeirosFilialService.listarBarbeirosBy(id);
-        return new ResponseEntity<>(response, HttpStatus.CREATED);
+        return ResponseEntity.ok(response);
     }
 }

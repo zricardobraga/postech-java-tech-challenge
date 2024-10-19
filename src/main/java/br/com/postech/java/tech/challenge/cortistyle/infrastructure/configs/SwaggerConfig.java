@@ -15,7 +15,7 @@ class SwaggerConfig {
                 .addOperationCustomizer((operation, $) -> {
                     operation.addParametersItem(
                             new HeaderParameter()
-                                    .name("Authorization")
+                                    .name("token")
                                     .description("Access Token")
                                     .required(false));
                     operation.addParametersItem(

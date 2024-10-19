@@ -7,5 +7,6 @@ import lombok.Getter;
 @AllArgsConstructor
 public class CadastrarBarbeiroResponse {
 
-    private String nome;
+    private String username;
+    private String password;
 }

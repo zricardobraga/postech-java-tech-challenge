@@ -1,4 +1,5 @@
-package br.com.postech.java.tech.challenge.cortistyle.application.cadastros.barbeiro.request;
+package br.com.postech.java.tech.challenge.cortistyle.application.cadastros.cliente.request;
+
 
 import br.com.postech.java.tech.challenge.cortistyle.domain.login.usuario.entity.Usuario;
 import br.com.postech.java.tech.challenge.cortistyle.infrastructure.enums.TipoUsuarioEnum;
@@ -7,16 +8,18 @@ import jakarta.validation.constraints.NotNull;
 import lombok.Getter;
 
 @Getter
-public class CadastrarBarbeiroRequest {
-
+public class CadastrarClienteRequest {
+    @NotBlank
+    private String usuario;
+    @NotNull
+    private String senha;
     @NotBlank
     private String nome;
     @NotNull
     private String cpfCnpj;
-    @NotNull
-    private String gestorId;
 
-    public Usuario toBarbeiro() {
-        return new Usuario(null, this.nome, this.cpfCnpj, "", "", null, TipoUsuarioEnum.BARBEIRO);
+    public Usuario toCliente() {
+        return new Usuario(null, this.nome, this.cpfCnpj, this.usuario, this.senha, null, TipoUsuarioEnum.CLIENTE);
     }
+
 }

@@ -1,7 +1,7 @@
 package br.com.postech.java.tech.challenge.cortistyle.domain.cadastros.barbeiro.service;
 
 import br.com.postech.java.tech.challenge.cortistyle.application.cadastros.barbeiro.request.CadastrarHorarioBarbeiroRequest;
-import br.com.postech.java.tech.challenge.cortistyle.application.cadastros.barbeiro.response.CadastroHorarioBarbeiroResponse;
+import br.com.postech.java.tech.challenge.cortistyle.application.cadastros.barbeiro.response.HorarioBarbeiroResponse;
 import br.com.postech.java.tech.challenge.cortistyle.domain.cadastros.barbeiro.entity.BarbeiroHorario;
 import br.com.postech.java.tech.challenge.cortistyle.domain.login.usuario.entity.Usuario;
 import br.com.postech.java.tech.challenge.cortistyle.infrastructure.enums.TipoUsuarioEnum;
@@ -26,7 +26,7 @@ public class CadastrarHorarioService {
     private final BarbeiroHorarioRepository repository;
     private final UsuarioRepository usuarioRepository;
 
-    public List<CadastroHorarioBarbeiroResponse> cadastrar(@Valid CadastrarHorarioBarbeiroRequest request) {
+    public List<HorarioBarbeiroResponse> cadastrar(@Valid CadastrarHorarioBarbeiroRequest request) {
 
         try {
             DateTimeFormatter df = DateTimeFormatter.ofPattern("HH:mm");
@@ -52,10 +52,10 @@ public class CadastrarHorarioService {
 
         repository.save(novoHorarioBarbeiro);
 
-        List<CadastroHorarioBarbeiroResponse> horariosDoBarbeiro =
+        List<HorarioBarbeiroResponse> horariosDoBarbeiro =
                 repository.findAllByBarbeiroId(request.getBarbeiroId())
                         .stream()
-                        .map(horario -> new CadastroHorarioBarbeiroResponse(horario.getHorario(),
+                        .map(horario -> new HorarioBarbeiroResponse(horario.getHorario(),
                                 horario.getAgendado()))
                         .collect(Collectors.toList());
 

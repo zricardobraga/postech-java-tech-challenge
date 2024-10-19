@@ -4,12 +4,15 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 
 import java.io.Serializable;
+import java.math.BigDecimal;
 
 @Getter
 @AllArgsConstructor
 @SuppressWarnings("serial")
-public class CadastroHorarioBarbeiroResponse implements Serializable {
+public class ServicoBarbeiroResponse implements Serializable {
 
-    private String horario;
-    private Boolean agendado;
+    private Long servicoId;
+    private String servico;
+    private BigDecimal valor;
+
 }

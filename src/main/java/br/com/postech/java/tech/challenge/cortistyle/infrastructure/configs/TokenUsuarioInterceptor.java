@@ -28,6 +28,8 @@ public class TokenUsuarioInterceptor implements HandlerInterceptor {
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler)
             throws Exception {
         String headerId = Optional.ofNullable(request.getHeader("client-id")).orElse("");
+        String token = Optional.ofNullable(request.getHeader("token")).orElse("");
+
         log.info("Requisição interceptada usuario de id: {}", headerId);
 
         List<String> urisAutenticadas = List.of("/filiais", "/barbeiros", "/servicos");
@@ -41,9 +43,8 @@ public class TokenUsuarioInterceptor implements HandlerInterceptor {
 
         if (uriPrecisaEstarAutenticado.get()) {
 
-            String token = Optional.ofNullable(request.getHeader("Authorization")).orElse("");
             if (headerId.isBlank() || token.isBlank()) {
-                throw new PolicyException(NAO_AUTENTICADO);
+                throw new PolicyException("Propriedade Header não encontrada");
             }
 
             Optional<Usuario> usuario = repository.findById(Long.valueOf(headerId));

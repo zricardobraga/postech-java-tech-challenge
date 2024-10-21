@@ -1,7 +1,6 @@
 package br.com.postech.java.tech.challenge.cortistyle.domain.cadastros.barbeiro.service;
 
 import br.com.postech.java.tech.challenge.cortistyle.application.cadastros.barbeiro.request.CadastrarHorarioBarbeiroRequest;
-import br.com.postech.java.tech.challenge.cortistyle.application.cadastros.barbeiro.response.HorarioBarbeiroResponse;
 import br.com.postech.java.tech.challenge.cortistyle.domain.cadastros.barbeiro.entity.BarbeiroHorario;
 import br.com.postech.java.tech.challenge.cortistyle.domain.login.usuario.entity.Usuario;
 import br.com.postech.java.tech.challenge.cortistyle.infrastructure.enums.TipoUsuarioEnum;
@@ -15,9 +14,7 @@ import org.springframework.stereotype.Service;
 import java.time.DateTimeException;
 import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
-import java.util.List;
 import java.util.Optional;
-import java.util.stream.Collectors;
 
 @Service
 @RequiredArgsConstructor
@@ -26,7 +23,7 @@ public class CadastrarHorarioService {
     private final BarbeiroHorarioRepository repository;
     private final UsuarioRepository usuarioRepository;
 
-    public List<HorarioBarbeiroResponse> cadastrar(@Valid CadastrarHorarioBarbeiroRequest request) {
+    public void cadastrar(@Valid CadastrarHorarioBarbeiroRequest request) {
 
         try {
             DateTimeFormatter df = DateTimeFormatter.ofPattern("HH:mm");
@@ -51,14 +48,5 @@ public class CadastrarHorarioService {
                 request.getHorario(), Boolean.FALSE);
 
         repository.save(novoHorarioBarbeiro);
-
-        List<HorarioBarbeiroResponse> horariosDoBarbeiro =
-                repository.findAllByBarbeiroId(request.getBarbeiroId())
-                        .stream()
-                        .map(horario -> new HorarioBarbeiroResponse(horario.getHorario(),
-                                horario.getAgendado()))
-                        .collect(Collectors.toList());
-
-        return horariosDoBarbeiro;
     }
 }

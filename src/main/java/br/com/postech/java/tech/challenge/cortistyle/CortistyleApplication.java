@@ -10,4 +10,5 @@ public class CortistyleApplication {
 		SpringApplication.run(CortistyleApplication.class, args);
 	}
 
+	// TODO: testar fluxo cadastra cliente, barbeiro e agendamentos.
 }

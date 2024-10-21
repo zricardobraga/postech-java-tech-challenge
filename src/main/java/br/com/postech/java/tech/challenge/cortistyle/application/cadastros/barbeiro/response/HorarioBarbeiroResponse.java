@@ -10,6 +10,7 @@ import java.io.Serializable;
 @SuppressWarnings("serial")
 public class HorarioBarbeiroResponse implements Serializable {
 
+    private Long id;
     private String horario;
-    private Boolean agendado;
+
 }

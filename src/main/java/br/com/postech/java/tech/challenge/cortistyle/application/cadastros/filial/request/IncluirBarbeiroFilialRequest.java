@@ -15,6 +15,6 @@ public class IncluirBarbeiroFilialRequest {
     private Long gestorId;
 
     public BarbeiroFilial toFilialBarbeiro() {
-        return new BarbeiroFilial(null, this.filialId, null);
+        return new BarbeiroFilial(null, null, null);
     }
 }

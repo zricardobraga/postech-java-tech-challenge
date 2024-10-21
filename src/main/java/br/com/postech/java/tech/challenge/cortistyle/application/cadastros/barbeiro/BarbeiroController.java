@@ -45,7 +45,8 @@ public class BarbeiroController {
     public ResponseEntity<List<HorarioBarbeiroResponse>> cadastrarHorario(@RequestBody @Valid
                                                                           CadastrarHorarioBarbeiroRequest request) {
         log.info("Cadastrando novo horario para o barbeiro de id: {}", request.getBarbeiroId());
-        List<HorarioBarbeiroResponse> response = cadastrarHorarioService.cadastrar(request);
+        cadastrarHorarioService.cadastrar(request);
+        ArrayList<HorarioBarbeiroResponse> response = listarHorariosBarbeiroService.listar(request.getBarbeiroId());
         return new ResponseEntity<>(response, HttpStatus.CREATED);
     }
 

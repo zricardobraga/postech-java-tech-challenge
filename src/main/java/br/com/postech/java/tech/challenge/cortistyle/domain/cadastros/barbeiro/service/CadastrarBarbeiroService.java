@@ -34,6 +34,7 @@ public class CadastrarBarbeiroService {
 
         Optional<Usuario> byUsername;
         int cont = 1;
+
         do {
             byUsername = repository.findByUsername(barbeiro.getUsername());
 
@@ -51,8 +52,6 @@ public class CadastrarBarbeiroService {
         var barbeiroCadastrado = repository.save(barbeiro);
 
         // TODO: SistemaExterno notifica barbeiro e envia informacoes do cadastro
-        // TODO : validar tokens null
-        // TODO : permitir rotas por tipo usuario
 
         return new CadastrarBarbeiroResponse(barbeiroCadastrado.getUsername(), barbeiroCadastrado.getPassword());
     }

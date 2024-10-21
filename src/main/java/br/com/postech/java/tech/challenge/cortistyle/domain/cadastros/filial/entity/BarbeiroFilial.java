@@ -19,7 +19,10 @@ public class BarbeiroFilial implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    private Long filialId;
+
+    @ManyToOne
+    @JoinColumn(referencedColumnName = "id")
+    private Filial filial;
 
     @ManyToOne
     @JoinColumn(name = "barbeiro", referencedColumnName = "id")

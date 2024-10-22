@@ -30,10 +30,12 @@ public class CadastrarBarbeiroService {
 
         Usuario barbeiro = request.toBarbeiro();
         barbeiro.setUsername(this.generateUsernameBarbeiro(barbeiro.getNome()));
-        barbeiro.setPassword(Base64.getEncoder().encodeToString(UUID.randomUUID().toString().getBytes()));
+        String senha = UUID.randomUUID().toString();
+        barbeiro.setPassword(Base64.getEncoder().encodeToString(senha.getBytes()));
 
         Optional<Usuario> byUsername;
         int cont = 1;
+
         do {
             byUsername = repository.findByUsername(barbeiro.getUsername());
 
@@ -51,10 +53,8 @@ public class CadastrarBarbeiroService {
         var barbeiroCadastrado = repository.save(barbeiro);
 
         // TODO: SistemaExterno notifica barbeiro e envia informacoes do cadastro
-        // TODO : validar tokens null
-        // TODO : permitir rotas por tipo usuario
 
-        return new CadastrarBarbeiroResponse(barbeiroCadastrado.getUsername(), barbeiroCadastrado.getPassword());
+        return new CadastrarBarbeiroResponse(barbeiroCadastrado.getUsername(), senha);
     }
 
     private String generateUsernameBarbeiro(String nomeBarbebeiro) {

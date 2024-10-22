@@ -30,9 +30,7 @@ public class TokenUsuarioInterceptor implements HandlerInterceptor {
         String headerId = Optional.ofNullable(request.getHeader("client-id")).orElse("");
         String token = Optional.ofNullable(request.getHeader("token")).orElse("");
 
-        log.info("Requisição interceptada usuario de id: {}", headerId);
-
-        List<String> urisAutenticadas = List.of("/filiais", "/barbeiros", "/servicos");
+        List<String> urisAutenticadas = List.of("/filiais", "/barbeiros", "/servicos", "/agendamentos");
         AtomicBoolean uriPrecisaEstarAutenticado = new AtomicBoolean(false);
 
         urisAutenticadas.forEach(uriAutenticada -> {
@@ -49,15 +47,15 @@ public class TokenUsuarioInterceptor implements HandlerInterceptor {
 
             Optional<Usuario> usuario = repository.findById(Long.valueOf(headerId));
             if (!usuario.isPresent()) {
-                log.info("usuario invalido", headerId);
                 throw new PolicyException(NAO_AUTENTICADO);
             }
 
             String usuarioToken = usuario.get().getToken();
-            if (!token.equals(usuarioToken)) {
-                log.info(TOKEN_INVALIDO);
+            if (usuarioToken == null || !token.equals(usuarioToken)) {
                 throw new PolicyException(TOKEN_INVALIDO);
             }
+
+            //TODO: Autorizacao rotas gestor, barbeiro e cliente
         }
 
         return true;

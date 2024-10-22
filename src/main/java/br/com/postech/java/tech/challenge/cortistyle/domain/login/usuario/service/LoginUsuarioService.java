@@ -27,9 +27,10 @@ public class LoginUsuarioService {
             throw new PolicyException("Dados inválidos");
         }
 
-        usuario.get().setToken(UUID.randomUUID().toString());
-
-        repository.save(usuario.get());
+        if (usuario.get().getToken() == null || usuario.get().getToken().isBlank()) {
+            usuario.get().setToken(UUID.randomUUID().toString());
+            repository.save(usuario.get());
+        }
 
         return new LoginResponse(usuario.get().getId(), usuario.get().getToken());
     }

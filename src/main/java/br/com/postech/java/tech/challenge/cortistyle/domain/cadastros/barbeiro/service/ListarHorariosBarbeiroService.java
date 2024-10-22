@@ -20,8 +20,8 @@ public class ListarHorariosBarbeiroService {
                 .stream()
                 .map((BarbeiroHorario horario) ->
                         new HorarioBarbeiroResponse(
-                                horario.getHorario(),
-                                horario.getAgendado()
+                                horario.getId(),
+                                horario.getHorario()
                         )
                 ).collect(Collectors.toCollection(ArrayList::new));
     }

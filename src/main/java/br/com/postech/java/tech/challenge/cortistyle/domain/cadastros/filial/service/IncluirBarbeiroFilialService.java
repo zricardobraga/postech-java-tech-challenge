@@ -25,7 +25,7 @@ public class IncluirBarbeiroFilialService {
 
     public void incluir(@Valid IncluirBarbeiroFilialRequest request) {
         Optional<Usuario> gestor =
-                usuarioRepository.findByIdAndTpUsuario(Long.valueOf(request.getGestorId()), TipoUsuarioEnum.GESTOR);
+                usuarioRepository.findByIdAndTpUsuario(request.getGestorId(), TipoUsuarioEnum.GESTOR);
 
         if (!gestor.isPresent()) {
             throw new PolicyException("Gestor inválido");
@@ -50,6 +50,7 @@ public class IncluirBarbeiroFilialService {
         }
 
         BarbeiroFilial novoBarbeiroFilial = request.toFilialBarbeiro();
+        novoBarbeiroFilial.setFilial(filial.get());
         novoBarbeiroFilial.setBarbeiro(barbeiro.get());
 
         filialBarbeiroRepository.save(novoBarbeiroFilial);

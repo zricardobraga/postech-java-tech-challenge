@@ -24,6 +24,7 @@ public class AgendamentoServico implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+    @Enumerated(EnumType.STRING)
     private StatusAgendamentoEnum status;
     private LocalDate data;
 

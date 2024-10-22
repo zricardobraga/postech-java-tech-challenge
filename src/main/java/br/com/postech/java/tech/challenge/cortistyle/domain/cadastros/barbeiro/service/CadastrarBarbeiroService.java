@@ -30,7 +30,8 @@ public class CadastrarBarbeiroService {
 
         Usuario barbeiro = request.toBarbeiro();
         barbeiro.setUsername(this.generateUsernameBarbeiro(barbeiro.getNome()));
-        barbeiro.setPassword(Base64.getEncoder().encodeToString(UUID.randomUUID().toString().getBytes()));
+        String senha = UUID.randomUUID().toString();
+        barbeiro.setPassword(Base64.getEncoder().encodeToString(senha.getBytes()));
 
         Optional<Usuario> byUsername;
         int cont = 1;
@@ -53,7 +54,7 @@ public class CadastrarBarbeiroService {
 
         // TODO: SistemaExterno notifica barbeiro e envia informacoes do cadastro
 
-        return new CadastrarBarbeiroResponse(barbeiroCadastrado.getUsername(), barbeiroCadastrado.getPassword());
+        return new CadastrarBarbeiroResponse(barbeiroCadastrado.getUsername(), senha);
     }
 
     private String generateUsernameBarbeiro(String nomeBarbebeiro) {

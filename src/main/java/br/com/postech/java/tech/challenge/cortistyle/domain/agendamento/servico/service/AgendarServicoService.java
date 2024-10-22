@@ -81,6 +81,12 @@ public class AgendarServicoService {
             throw new PolicyException("Horário não encontrado para barbeiro de id " + request.getBarbeiroId());
         }
 
+        var horarioJaAgendado =
+                repository.findByDataEqualsAndHorarioBarbeiroBarbeiroId(LocalDate.now(), horarioBarbeiro.get().getId());
+        if (horarioJaAgendado.isPresent()) {
+            throw new PolicyException("Horário já agendado.");
+        }
+
         AgendamentoServico agendamento = new AgendamentoServico();
         agendamento.setData(LocalDate.now());
         agendamento.setStatus(StatusAgendamentoEnum.AGUARDANDO_CONFIRMACAO);

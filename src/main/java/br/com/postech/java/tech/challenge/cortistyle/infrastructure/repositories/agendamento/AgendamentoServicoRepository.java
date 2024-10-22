@@ -6,10 +6,12 @@ import org.springframework.stereotype.Repository;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.Optional;
 
 @Repository
 public interface AgendamentoServicoRepository extends JpaRepository<AgendamentoServico, Long> {
 
     ArrayList<AgendamentoServico> findAllByDataEqualsAndBarbeiroId(LocalDate data, Long barbeiroId);
 
+    Optional<AgendamentoServico> findByDataEqualsAndHorarioBarbeiroBarbeiroId(LocalDate data, Long barbeiroId);
 }

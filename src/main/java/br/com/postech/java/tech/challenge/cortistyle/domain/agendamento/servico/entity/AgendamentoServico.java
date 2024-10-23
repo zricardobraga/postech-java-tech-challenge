@@ -24,9 +24,11 @@ public class AgendamentoServico implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+
+    private LocalDate data;
+
     @Enumerated(EnumType.STRING)
     private StatusAgendamentoEnum status;
-    private LocalDate data;
 
     @ManyToOne
     @JoinColumn(referencedColumnName = "id")

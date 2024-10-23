@@ -1,7 +1,7 @@
 package br.com.postech.java.tech.challenge.cortistyle.domain.cadastros.filial.service;
 
 import br.com.postech.java.tech.challenge.cortistyle.application.cadastros.filial.request.CadastrarFilialRequest;
-import br.com.postech.java.tech.challenge.cortistyle.application.cadastros.filial.response.CadastrarFilialResponse;
+import br.com.postech.java.tech.challenge.cortistyle.application.cadastros.filial.response.FilialResponse;
 import br.com.postech.java.tech.challenge.cortistyle.domain.login.usuario.entity.Usuario;
 import br.com.postech.java.tech.challenge.cortistyle.infrastructure.enums.TipoUsuarioEnum;
 import br.com.postech.java.tech.challenge.cortistyle.infrastructure.exceptions.PolicyException;
@@ -20,7 +20,7 @@ public class CadastrarFilialService {
     private final FilialRepository repository;
     private final UsuarioRepository usuarioRepository;
 
-    public CadastrarFilialResponse cadastrar(@Valid CadastrarFilialRequest request) {
+    public FilialResponse cadastrar(@Valid CadastrarFilialRequest request) {
         Optional<Usuario> gestor =
                 usuarioRepository.findByIdAndTpUsuario(Long.valueOf(request.getGestorId()), TipoUsuarioEnum.GESTOR);
 
@@ -30,6 +30,6 @@ public class CadastrarFilialService {
 
         var filialCadastrada = repository.save(request.toFilial());
 
-        return new CadastrarFilialResponse(filialCadastrada.getNome());
+        return new FilialResponse(filialCadastrada.getId(), filialCadastrada.getNome());
     }
 }

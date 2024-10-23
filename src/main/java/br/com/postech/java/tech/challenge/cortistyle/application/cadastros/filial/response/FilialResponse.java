@@ -8,8 +8,9 @@ import java.io.Serializable;
 @Getter
 @AllArgsConstructor
 @SuppressWarnings("serial")
-public class CadastrarFilialResponse implements Serializable {
+public class FilialResponse implements Serializable {
 
+    private Long id;
     private String nome;
 
 }

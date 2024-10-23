@@ -42,7 +42,7 @@ public class TokenUsuarioInterceptor implements HandlerInterceptor {
         if (uriPrecisaEstarAutenticado.get()) {
 
             if (headerId.isBlank() || token.isBlank()) {
-                throw new PolicyException("Propriedade Header não encontrada");
+                throw new PolicyException(NAO_AUTENTICADO);
             }
 
             Optional<Usuario> usuario = repository.findById(Long.valueOf(headerId));

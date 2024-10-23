@@ -34,6 +34,7 @@ public class AgendarServicoService {
     public void agendar(AgendarServicoRequest request) {
 
         var cliente = usuarioRepository.findByIdAndTpUsuario(request.getClienteId(), TipoUsuarioEnum.CLIENTE);
+
         if (!cliente.isPresent()) {
             throw new PolicyException("Cliente não encontrado.");
         }
@@ -77,12 +78,14 @@ public class AgendarServicoService {
         }
 
         var horarioBarbeiro = barbeiroHorarioRepository.findById(request.getHorarioBarbeiroId());
+
         if (!horarioBarbeiro.isPresent()) {
             throw new PolicyException("Horário não encontrado para barbeiro de id " + request.getBarbeiroId());
         }
 
         var horarioJaAgendado =
                 repository.findByDataEqualsAndHorarioBarbeiroBarbeiroId(LocalDate.now(), horarioBarbeiro.get().getId());
+
         if (horarioJaAgendado.isPresent()) {
             throw new PolicyException("Horário já agendado.");
         }
@@ -121,11 +124,11 @@ public class AgendarServicoService {
             // Cliente só cancela agendamento e solicita agendamento
             statusAgendamentoEnum = StatusAgendamentoEnum.CANCELADO;
         } else {
+            // Barbeiro ou Gestor cancela ou confirma
             statusAgendamentoEnum =
                     request.getConfirmar() ? StatusAgendamentoEnum.CONFIRMADO : StatusAgendamentoEnum.CANCELADO;
         }
 
-        // atualiza status agendamento
         agendamento.get().setStatus(statusAgendamentoEnum);
         repository.save(agendamento.get());
 

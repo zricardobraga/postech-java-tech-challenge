@@ -6,9 +6,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 @SpringBootApplication
 public class CortistyleApplication {
 
-	public static void main(String[] args) {
-		SpringApplication.run(CortistyleApplication.class, args);
-	}
-
-	// TODO: testar fluxo cadastra cliente, barbeiro e agendamentos.
+    public static void main(String[] args) {
+        SpringApplication.run(CortistyleApplication.class, args);
+    }
 }

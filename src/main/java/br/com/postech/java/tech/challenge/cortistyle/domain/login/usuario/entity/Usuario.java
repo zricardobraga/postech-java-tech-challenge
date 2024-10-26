@@ -1,5 +1,6 @@
 package br.com.postech.java.tech.challenge.cortistyle.domain.login.usuario.entity;
 
+import br.com.postech.java.tech.challenge.cortistyle.domain.pagamento.servico.enums.TipoPagamentoEnum;
 import br.com.postech.java.tech.challenge.cortistyle.infrastructure.enums.TipoUsuarioEnum;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
@@ -24,7 +25,9 @@ public class Usuario implements Serializable {
     private String username;
     private String password;
     private String token;
-
     @Enumerated(EnumType.STRING)
     private TipoUsuarioEnum tpUsuario;
+    @Enumerated(EnumType.STRING)
+    private TipoPagamentoEnum tpPagamento;
+
 }

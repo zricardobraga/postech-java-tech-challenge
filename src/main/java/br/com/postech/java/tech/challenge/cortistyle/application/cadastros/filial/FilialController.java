@@ -3,10 +3,11 @@ package br.com.postech.java.tech.challenge.cortistyle.application.cadastros.fili
 import br.com.postech.java.tech.challenge.cortistyle.application.cadastros.filial.request.CadastrarFilialRequest;
 import br.com.postech.java.tech.challenge.cortistyle.application.cadastros.filial.request.IncluirBarbeiroFilialRequest;
 import br.com.postech.java.tech.challenge.cortistyle.application.cadastros.filial.response.BarbeiroFilialResponse;
-import br.com.postech.java.tech.challenge.cortistyle.application.cadastros.filial.response.CadastrarFilialResponse;
+import br.com.postech.java.tech.challenge.cortistyle.application.cadastros.filial.response.FilialResponse;
 import br.com.postech.java.tech.challenge.cortistyle.domain.cadastros.filial.service.CadastrarFilialService;
 import br.com.postech.java.tech.challenge.cortistyle.domain.cadastros.filial.service.IncluirBarbeiroFilialService;
 import br.com.postech.java.tech.challenge.cortistyle.domain.cadastros.filial.service.ListarBarbeirosFilialService;
+import br.com.postech.java.tech.challenge.cortistyle.domain.cadastros.filial.service.ListarFilialService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
@@ -16,6 +17,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Tag(name = "Cadastros")
@@ -26,15 +28,24 @@ import java.util.List;
 public class FilialController {
 
     private final CadastrarFilialService cadastrarFilialService;
+    private final ListarFilialService listarFilialsService;
     private final IncluirBarbeiroFilialService incluirBarbeiroFilialService;
     private final ListarBarbeirosFilialService listarBarbeirosFilialService;
 
     @PostMapping
     @Operation(summary = "Cadastrar nova filial")
-    public ResponseEntity<CadastrarFilialResponse> cadastrar(@RequestBody @Valid CadastrarFilialRequest request) {
+    public ResponseEntity<FilialResponse> cadastrar(@RequestBody @Valid CadastrarFilialRequest request) {
         log.info("Cadastrando nova filial pelo gestor: {}", "nomeGestor");
-        CadastrarFilialResponse response = cadastrarFilialService.cadastrar(request);
+        FilialResponse response = cadastrarFilialService.cadastrar(request);
         return new ResponseEntity<>(response, HttpStatus.CREATED);
+    }
+
+    @GetMapping("/listar")
+    @Operation(summary = "Listar filiais")
+    public ResponseEntity<ArrayList<FilialResponse>> listar() {
+        log.info("Listando todas filiais");
+        ArrayList<FilialResponse> response = listarFilialsService.listar();
+        return ResponseEntity.ok(response);
     }
 
     @PostMapping("/barbeiros")

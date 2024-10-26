@@ -41,6 +41,10 @@ public class AgendarServicoService {
 
         List<BarbeiroFilial> barbeirosFilialList = filialBarbeiroRepository.findAllByFilialId(request.getFilialId());
 
+        if (barbeirosFilialList.isEmpty()) {
+            throw new PolicyException("Filial sem barbeiros cadastrados");
+        }
+
         var filialEncontrada = barbeirosFilialList.stream()
                 .map(BarbeiroFilial::getFilial)
                 .findFirst();

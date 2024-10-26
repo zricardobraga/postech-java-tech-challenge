@@ -17,6 +17,6 @@ public class CadastrarBarbeiroRequest {
     private String gestorId;
 
     public Usuario toBarbeiro() {
-        return new Usuario(null, this.nome, this.cpfCnpj, "", "", null, TipoUsuarioEnum.BARBEIRO);
+        return new Usuario(null, this.nome, this.cpfCnpj, "", "", null, TipoUsuarioEnum.BARBEIRO, null);
     }
 }

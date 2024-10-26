@@ -60,7 +60,11 @@ public class CadastrarBarbeiroService {
     private String generateUsernameBarbeiro(String nomeBarbebeiro) {
         String[] nomeSobreNome = nomeBarbebeiro.split(" ");
         String nome = nomeSobreNome[0].trim().toLowerCase();
-        String primeiroSobreNome = Optional.ofNullable(nomeSobreNome[1]).orElse("").trim().toLowerCase();
+
+        String primeiroSobreNome = "";
+        if (nomeSobreNome.length > 1) {
+            primeiroSobreNome = Optional.ofNullable(nomeSobreNome[1]).orElse("").trim().toLowerCase();
+        }
 
         String username = nome.substring(0, 1).concat(primeiroSobreNome).concat("@cortistyle.com.br");
 

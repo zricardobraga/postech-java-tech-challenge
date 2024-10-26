@@ -2,5 +2,5 @@ package br.com.postech.java.tech.challenge.cortistyle.domain.agendamento.servico
 
 public enum StatusAgendamentoEnum {
 
-    AGUARDANDO_CONFIRMACAO, CONFIRMADO, CANCELADO
+    AGUARDANDO_CONFIRMACAO, CONFIRMADO, CANCELADO, SERVICO_REALIZADO
 }

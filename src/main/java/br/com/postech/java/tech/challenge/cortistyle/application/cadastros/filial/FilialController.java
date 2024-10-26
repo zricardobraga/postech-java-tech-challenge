@@ -40,7 +40,7 @@ public class FilialController {
         return new ResponseEntity<>(response, HttpStatus.CREATED);
     }
 
-    @GetMapping
+    @GetMapping("/listar")
     @Operation(summary = "Listar filiais")
     public ResponseEntity<ArrayList<FilialResponse>> listar() {
         log.info("Listando todas filiais");

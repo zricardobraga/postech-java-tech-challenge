@@ -1,6 +1,7 @@
 package br.com.postech.java.tech.challenge.cortistyle.infrastructure.configs;
 
 import br.com.postech.java.tech.challenge.cortistyle.domain.login.usuario.entity.Usuario;
+import br.com.postech.java.tech.challenge.cortistyle.infrastructure.enums.TipoUsuarioEnum;
 import br.com.postech.java.tech.challenge.cortistyle.infrastructure.exceptions.PolicyException;
 import br.com.postech.java.tech.challenge.cortistyle.infrastructure.repositories.login.usuario.UsuarioRepository;
 import jakarta.servlet.http.HttpServletRequest;
@@ -22,6 +23,16 @@ public class TokenUsuarioInterceptor implements HandlerInterceptor {
     public static final String NAO_AUTENTICADO = "Não autenticado";
     public static final String TOKEN_INVALIDO = "Token inválido";
 
+    private List<String> rotasBarbeiroProibidas = List.of("/filiais", "/barbeiros", "/servicos", "/filiais",
+            "/filiais/barbeiros");
+
+    private List<String> rotasUsuarioProbidas = List.of("/filiais", "/barbeiros", "/servicos", "/filiais/barbeiros",
+            "/barbeiros/servicos", "barbeiros/horarios", "/clientes", "/pagamentos/barbeiros", "/agendamentos" +
+                    "/confirmar/servico", "/agendamentos/barbeiros");
+
+    private List<String> urisAutenticadas = List.of("/filiais", "/barbeiros", "/servicos", "/agendamentos", "/clientes",
+            "/pagamentos");
+
     private final UsuarioRepository repository;
 
     @Override
@@ -29,12 +40,12 @@ public class TokenUsuarioInterceptor implements HandlerInterceptor {
             throws Exception {
         String headerId = Optional.ofNullable(request.getHeader("client-id")).orElse("");
         String token = Optional.ofNullable(request.getHeader("token")).orElse("");
+        String requestURI = request.getRequestURI();
 
-        List<String> urisAutenticadas = List.of("/filiais", "/barbeiros", "/servicos", "/agendamentos");
         AtomicBoolean uriPrecisaEstarAutenticado = new AtomicBoolean(false);
 
         urisAutenticadas.forEach(uriAutenticada -> {
-            if (request.getRequestURI().startsWith(uriAutenticada)) {
+            if (requestURI.startsWith(uriAutenticada)) {
                 uriPrecisaEstarAutenticado.set(true);
             }
         });
@@ -50,14 +61,32 @@ public class TokenUsuarioInterceptor implements HandlerInterceptor {
                 throw new PolicyException(NAO_AUTENTICADO);
             }
 
+            isForbbidenPath(requestURI, usuario.get());
+
             String usuarioToken = usuario.get().getToken();
             if (usuarioToken == null || !token.equals(usuarioToken)) {
                 throw new PolicyException(TOKEN_INVALIDO);
             }
-
-            //TODO: Autorizacao rotas gestor, barbeiro e cliente
         }
 
         return true;
+    }
+
+    private void isForbbidenPath(String rota, Usuario usuario) {
+        if (TipoUsuarioEnum.GESTOR.equals(usuario.getTpUsuario())) {
+            return;
+        }
+
+        if (TipoUsuarioEnum.BARBEIRO.equals(usuario.getTpUsuario())) {
+            if (rotasBarbeiroProibidas.contains(rota)) {
+                throw new PolicyException("Acesso Inautorizado");
+            }
+        } else if (TipoUsuarioEnum.CLIENTE.equals(usuario.getTpUsuario())) {
+            if (rotasUsuarioProbidas.contains(rota)) {
+                throw new PolicyException("Acesso Inautorizado");
+            }
+        } else {
+            throw new PolicyException("Acesso Inautorizado");
+        }
     }
 }

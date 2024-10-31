@@ -22,6 +22,7 @@ public class TokenUsuarioInterceptor implements HandlerInterceptor {
 
     public static final String NAO_AUTENTICADO = "Não autenticado";
     public static final String TOKEN_INVALIDO = "Token inválido";
+    public static final String ACESSO_NAO_AUTORIZADO = "Acesso não autorizado";
 
     private List<String> rotasBarbeiroProibidas = List.of("/filiais", "/barbeiros", "/servicos", "/filiais",
             "/filiais/barbeiros");
@@ -79,14 +80,14 @@ public class TokenUsuarioInterceptor implements HandlerInterceptor {
 
         if (TipoUsuarioEnum.BARBEIRO.equals(usuario.getTpUsuario())) {
             if (rotasBarbeiroProibidas.contains(rota)) {
-                throw new PolicyException("Acesso Inautorizado");
+                throw new PolicyException(ACESSO_NAO_AUTORIZADO);
             }
         } else if (TipoUsuarioEnum.CLIENTE.equals(usuario.getTpUsuario())) {
             if (rotasUsuarioProbidas.contains(rota)) {
-                throw new PolicyException("Acesso Inautorizado");
+                throw new PolicyException(ACESSO_NAO_AUTORIZADO);
             }
         } else {
-            throw new PolicyException("Acesso Inautorizado");
+            throw new PolicyException(ACESSO_NAO_AUTORIZADO);
         }
     }
 }

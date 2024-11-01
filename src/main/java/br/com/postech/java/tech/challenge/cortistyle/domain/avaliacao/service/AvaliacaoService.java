@@ -2,6 +2,7 @@ package br.com.postech.java.tech.challenge.cortistyle.domain.avaliacao.service;
 
 import br.com.postech.java.tech.challenge.cortistyle.domain.avaliacao.entity.AvaliacaoCliente;
 import br.com.postech.java.tech.challenge.cortistyle.domain.pagamento.servico.entity.PagamentoServicoAgendado;
+import br.com.postech.java.tech.challenge.cortistyle.domain.pagamento.servico.enums.StatusPagamentoEnum;
 import br.com.postech.java.tech.challenge.cortistyle.infrastructure.exceptions.PolicyException;
 import br.com.postech.java.tech.challenge.cortistyle.application.avaliacao.cliente.request.CadastrarAvaliacaoRequest;
 import br.com.postech.java.tech.challenge.cortistyle.infrastructure.repositories.agendamento.AgendamentoServicoRepository;
@@ -26,7 +27,7 @@ public class AvaliacaoService {
         var pagamento = pagamentoServicoRepository.findByAgendamentoServicoId(request.getAgendamentoId())
                 .orElseThrow(() -> new PolicyException("Pagamento não encontrado"));
 
-        if (!"REALIZADO".equals(pagamento.getStatusPagamento())) {
+        if (pagamento.getStatusPagamento() != StatusPagamentoEnum.REALIZADO) {
             throw new PolicyException("Pagamento não realizado");
         }
 
@@ -37,6 +38,5 @@ public class AvaliacaoService {
         avaliacao.setUsuarioCadastrante(agendamento.getCliente());
 
         repository.save(avaliacao);
-
     }
 }

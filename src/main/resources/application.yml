@@ -1,0 +1,16 @@
+#####################################################
+######    ARQUIVO USADO PARA CONFIGS GERAIS    ######
+#####################################################
+spring:
+  application:
+    name: cortistyle
+  datasource:
+    url: jdbc:h2:mem:cortistyle
+    username: corti
+    password: style
+    driverClassName: org.h2.Driver
+  h2:
+    console.enabled: true
+
+server:
+  port: 8080

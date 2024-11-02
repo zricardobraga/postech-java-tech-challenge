@@ -14,4 +14,5 @@ public interface AgendamentoServicoRepository extends JpaRepository<AgendamentoS
     ArrayList<AgendamentoServico> findAllByDataEqualsAndBarbeiroId(LocalDate data, Long barbeiroId);
 
     Optional<AgendamentoServico> findByDataEqualsAndHorarioBarbeiroBarbeiroId(LocalDate data, Long barbeiroId);
+
 }

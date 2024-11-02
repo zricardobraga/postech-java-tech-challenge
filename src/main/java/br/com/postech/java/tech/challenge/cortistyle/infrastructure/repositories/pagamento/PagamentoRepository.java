@@ -13,5 +13,7 @@ public interface PagamentoRepository extends JpaRepository<PagamentoServicoAgend
 
     Optional<PagamentoServicoAgendado> findByAgendamentoServico(AgendamentoServico agendamentoServico);
 
+    Optional<PagamentoServicoAgendado> findByAgendamentoServicoId(Long id);
+
     ArrayList<PagamentoServicoAgendado> findByAgendamentoServicoBarbeiroId(Long barbeiroId);
 }
